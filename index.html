@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --navy: #0f172a;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --cream: #fafaf9;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --white: #ffffff
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--cream);
+            color: var(--navy);
+            line-height: 1.6
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(250, 250, 249, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 5%
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--navy);
+            text-decoration: none;
+            letter-spacing: -0.02em
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.8rem;
+            list-style: none
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            letter-spacing: 0.02em
+        }
+
+        .nav-links a:hover {
+            color: var(--accent)
+        }
+
+        .full-section {
+            max-width: 100%;
+            margin: 0;
+            padding: 5rem 10%
+        }
+
+        .inner {
+            max-width: 1200px;
+            margin: 0 auto
+        }
+
+        section.contained {
+            padding: 5rem 10%;
+            max-width: 1200px;
+            margin: 0 auto
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.14em;
+            color: var(--accent);
+            font-weight: 500;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--navy);
+            margin-bottom: 1rem
+        }
+
+        .section-desc {
+            color: var(--muted);
+            font-size: 0.98rem;
+            font-weight: 300;
+            max-width: 520px;
+            line-height: 1.8
+        }
+
+        /* HERO */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 7rem;
+            max-width: 100%;
+            margin: 0;
+            padding-left: 10%;
+            padding-right: 10%;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 40%, #fafaf9 100%)
+        }
+
+        .hero-blob {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.07) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+            z-index: 0
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: var(--accent);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            padding: 6px 14px;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            animation: fadeUp 0.6s ease both
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--navy);
+            margin-bottom: 1.2rem;
+            animation: fadeUp 0.6s 0.1s ease both
+        }
+
+        .hero-title span {
+            color: var(--accent)
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: var(--muted);
+            max-width: 520px;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            line-height: 1.85;
+            animation: fadeUp 0.6s 0.2s ease both
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: fadeUp 0.6s 0.3s ease both
+        }
+
+        .btn-primary {
+            background: var(--navy);
+            color: white;
+            border: none;
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-block
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-1px)
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--navy);
+            border: 1.5px solid var(--border);
+            padding: 0.85rem 2rem;
+            border-radius: 8px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: inline-block
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-1px)
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 4rem;
+            animation: fadeUp 0.6s 0.4s ease both;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border)
+        }
+
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--navy);
+            display: block
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            letter-spacing: 0.04em
+        }
+
+        /* ABOUT */
+        .about-inner {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            /* better balance */
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-img-placeholder {
+            width: 100%;
+            aspect-ratio: 4/5;
+            background: linear-gradient(145deg, #eef2ff, #e0e7ff);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: rgba(99, 102, 241, 0.25)
+        }
+
+        .about-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-img-wrap {
+            width: 100%;
+            max-width: 350px;
+            aspect-ratio: 4/5;
+            position: relative;
+            margin: 0 auto
+        }
+
+        .about-img-tag {
+            position: absolute;
+            bottom: 1.5rem;
+            right: -1.5rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .tag-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            flex-shrink: 0;
+            animation: pulse 2s infinite
+        }
+
+        .tag-text {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--navy)
+        }
+
+        .tag-sub {
+            font-size: 0.74rem;
+            color: var(--muted)
+        }
+
+        .about-text p {
+            color: var(--muted);
+            font-weight: 300;
+            line-height: 1.9;
+            margin-bottom: 1rem;
+            font-size: 0.96rem
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 2rem
+        }
+
+        .highlight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px
+        }
+
+        .highlight-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 14px
+        }
+
+        .highlight-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--navy)
+        }
+
+        .highlight-val {
+            font-size: 0.77rem;
+            color: var(--muted)
+        }
+
+        /* EXPERIENCE */
+        .exp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 3rem
+        }
+
+        .exp-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.6rem;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .exp-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent);
+            border-radius: 0
+        }
+
+        .exp-card:hover {
+            border-color: rgba(99, 102, 241, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(99, 102, 241, 0.07)
+        }
+
+        .exp-period {
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem
+        }
+
+        .exp-role {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.2rem
+        }
+
+        .exp-company {
+            font-size: 0.88rem;
+            color: var(--muted);
+            margin-bottom: 0.8rem;
+            font-weight: 400
+        }
+
+        .exp-desc {
+            font-size: 0.84rem;
+            color: var(--muted);
+            font-weight: 300;
+            line-height: 1.75
+        }
+
+        .exp-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 0.9rem
+        }
+
+        .exp-tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 3px 9px;
+            border-radius: 100px;
+            background: rgba(99, 102, 241, 0.07);
+            color: var(--accent);
+            border: 1px solid rgba(99, 102, 241, 0.12)
+        }
+
+        /* CERTIFICATIONS */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+            margin-top: 3rem
+        }
+
+        .cert-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.4rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: all 0.25s
+        }
+
+        .cert-card:hover {
+            border-color: rgba(99, 102, 241, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.06)
+        }
+
+        .cert-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0
+        }
+
+        .cert-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--navy);
+            margin-bottom: 0.2rem;
+            line-height: 1.4
+        }
+
+        .cert-issuer {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-bottom: 0.2rem
+        }
+
+        .cert-year {
+            font-size: 0.72rem;
+            color: var(--accent);
+            font-weight: 500;
+            letter-spacing: 0.06em
+        }
+
+        /* SKILLS */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 1.2rem;
+            margin-top: 3rem
+        }
+
+        .skill-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.4rem;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .skill-card:hover {
+            border-color: rgba(99, 102, 241, 0.28);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(99, 102, 241, 0.07)
+        }
+
+        .skill-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            display: block
+        }
+
+        .skill-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--navy);
+            margin-bottom: 0.35rem
+        }
+
+        .skill-level {
+            font-size: 0.76rem;
+            color: var(--muted);
+            margin-bottom: 0.75rem
+        }
+
+        .skill-bar {
+            height: 3px;
+            background: var(--border);
+            border-radius: 100px;
+            overflow: hidden
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 100px
+        }
+
+        /* PROJECTS */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem
+        }
+
+        .project-card {
+            background: var(--cream);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.25s
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.07);
+            border-color: rgba(99, 102, 241, 0.18)
+        }
+
+        .project-thumb {
+            height: 290px;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* IMAGE FULL COVER */
+        .project-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        /* HOVER EFFECT (🔥 premium zoom) */
+        .project-thumb:hover img {
+            transform: scale(1.05);
+        }
+
+        .thumb-1 {
+            background: linear-gradient(135deg, #eef2ff, #ddd6fe);
+        }
+
+        .thumb-2 {
+            background: linear-gradient(135deg, #f0fdf4, #bbf7d0);
+        }
+
+        .thumb-3 {
+            background: linear-gradient(135deg, #fff7ed, #fed7aa);
+        }
+
+        .project-body {
+            padding: 1.5rem
+        }
+
+        .project-tags-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 0.8rem
+        }
+
+        .p-tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 3px 10px;
+            border-radius: 100px;
+            background: rgba(99, 102, 241, 0.08);
+            color: var(--accent);
+            border: 1px solid rgba(99, 102, 241, 0.14)
+        }
+
+        .project-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.5rem
+        }
+
+        .project-desc {
+            font-size: 0.86rem;
+            color: var(--muted);
+            font-weight: 300;
+            line-height: 1.75
+        }
+
+        /* RESEARCH BLOCK */
+        .research-block {
+            margin-top: 1.2rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1.2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem
+        }
+
+        .research-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 0.4rem
+        }
+
+        .research-text {
+            font-size: 0.82rem;
+            color: var(--muted);
+            font-weight: 300;
+            line-height: 1.7
+        }
+
+        /* PROJECT LINKS */
+        .project-links-row {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+            flex-wrap: wrap
+        }
+
+        .proj-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            transition: all 0.2s
+        }
+
+        .proj-link-live {
+            background: var(--navy);
+            color: white
+        }
+
+        .proj-link-live:hover {
+            background: var(--accent)
+        }
+
+        .proj-link-research {
+            background: rgba(99, 102, 241, 0.08);
+            color: var(--accent);
+            border: 1px solid rgba(99, 102, 241, 0.18)
+        }
+
+        .proj-link-research:hover {
+            background: rgba(99, 102, 241, 0.14)
+        }
+
+        /* CONTACT */
+        .contact-wrap {
+            background: var(--navy);
+            border-radius: 24px;
+            padding: 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem
+        }
+
+        .contact-left .section-label {
+            color: #818cf8
+        }
+
+        .contact-left .section-title {
+            color: white
+        }
+
+        .contact-left p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.92rem;
+            font-weight: 300;
+            line-height: 1.85;
+            margin-top: 0.8rem
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .contact-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.07);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0
+        }
+
+        .contact-item-text {
+            font-size: 0.87rem;
+            color: rgba(255, 255, 255, 0.7)
+        }
+
+        .contact-item-label {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.32);
+            letter-spacing: 0.06em;
+            text-transform: uppercase
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        .form-label {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.45);
+            font-weight: 400
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            color: white;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s
+        }
+
+        .form-input:focus {
+            border-color: rgba(99, 102, 241, 0.55)
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.22)
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 100px
+        }
+
+        .btn-send {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 0.9rem 2rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%
+        }
+
+        .btn-send:hover {
+            background: var(--accent-light);
+            transform: translateY(-1px)
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+            border-top: 1px solid var(--border)
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: 0.4
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.6s ease, transform 0.6s ease
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none
+        }
+
+        @media(max-width:768px) {
+            nav {
+                padding: 1rem 5%
+            }
+
+            .full-section,
+            section.contained {
+                padding: 3rem 5%
+            }
+
+            .about-inner {
+                grid-template-columns: 1fr;
+                gap: 2rem
+            }
+
+            .exp-grid {
+                grid-template-columns: 1fr
+            }
+
+            .contact-wrap {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem
+            }
+
+            .hero-stats {
+                gap: 2rem
+            }
+
+            .about-img-tag {
+                right: 0
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr
+            }
+
+            .research-block {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#hero" class="nav-logo">Daniel Kirubakaran Jeyarajan</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero">
+        <div class="hero-blob"></div>
+        <div class="hero-content">
+            <div class="hero-badge">Open to Work · Immediate Joiner</div>
+            <h1 class="hero-title">Hi, I'm <span>Daniel Kirubakaran Jeyarajan</span><br>UI/UX Designer
+            </h1>
+            <p class="hero-sub">I craft beautiful digital experiences — blending clean code with thoughtful design to
+                build products people love.</p>
+            <div class="hero-ctas">
+                <a href="#projects" class="btn-primary">View My Work</a>
+                <a href="#contact" class="btn-outline">Get in Touch</a>
+            </div>
+            <div class="hero-stats">
+                <div><span class="stat-num">3+</span><span class="stat-label">Years Experience (Non Technical)</span>
+                </div>
+                <div><span class="stat-num">6+</span><span class="stat-label">Projects Completed</span></div>
+                <div><span class="stat-num">2019</span><span class="stat-label">Graduated On</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <div class="full-section" id="about">
+        <div class="inner about-inner">
+
+            <!-- LEFT: IMAGE -->
+            <div class="about-img-wrap">
+                <img src="images/_MG_7685 copy (1).jpg" alt="Your Name" class="about-img">
+
+                <div class="about-img-tag">
+                    <div class="tag-dot"></div>
+                    <div>
+                        <div class="tag-text">Open to Work · Immediate Joiner</div>
+                        <div class="tag-sub">Full-time · Onsite/Remote</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: CONTENT -->
+            <div class="about-text">
+                <div class="section-label">About Me</div>
+
+                <h2 class="section-title">
+                    Designing intuitive and impactful digital experiences
+                </h2>
+
+                <p>
+                    I’m a UI/UX designer passionate about creating user-centered digital
+                    experiences that are both visually engaging and easy to use.
+                </p>
+
+                <p>
+                    With skills in Figma, wireframing, and prototyping, along with a
+                    foundation in frontend technologies, I bridge the gap between design
+                    and development.
+                </p>
+
+                <!-- HIGHLIGHTS -->
+                <div class="about-highlights">
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🎨</div>
+                        <div>
+                            <div class="highlight-label">UI/UX Design</div>
+                            <div class="highlight-val">Figma, Wireframes, Prototypes</div>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">💻</div>
+                        <div>
+                            <div class="highlight-label">Frontend Basics</div>
+                            <div class="highlight-val">HTML, CSS, JavaScript</div>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">🗄️</div>
+                        <div>
+                            <div class="highlight-label">Database Basics</div>
+                            <div class="highlight-val">MySQL</div>
+                        </div>
+                    </div>
+
+                    <div class="highlight-item">
+                        <div class="highlight-icon">📊</div>
+                        <div>
+                            <div class="highlight-label">Digital Marketing</div>
+                            <div class="highlight-val">SEO Basics, Content Strategy</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- EXPERIENCE -->
+    <section class="contained" id="experience">
+        <div class="reveal">
+            <div class="section-label">Work History</div>
+            <h2 class="section-title">Experience</h2>
+            <p class="section-desc">Roles and responsibilities that shaped my professional journey.</p>
+        </div>
+        <div class="exp-grid">
+            <div class="exp-card reveal">
+                <div class="exp-period">Mar 2025 – May 2025</div>
+                <div class="exp-role">Global Payroll Specialist-1</div>
+                <div class="exp-company">Paychex India Private Limited · Bangalore · Onsite</div>
+                <div class="exp-desc">Processed payroll reports, handled client communications, and ensured accuracy in payroll operations for multiple clients.</div>
+                <div class="exp-tags"><span class="exp-tag">Payroll Processing</span><span class="exp-tag">Report
+                        Generation</span><span class="exp-tag">Customer Handling through emails</span></div>
+            </div>
+         
+            <div class="exp-card reveal">
+                <div class="exp-period">Mar 2023 – Mar 2025</div>
+                <div class="exp-role">Researcher 1</div>
+                <div class="exp-company">Hireright India, LLC · Bangalore · Remote</div>
+                <div class="exp-desc">Managed case assignments, coordinated with clients and candidates, and generated verification reports efficiently.</div>
+                <div class="exp-tags"><span class="exp-tag">Case Assigning</span><span class="exp-tag">Insufficiency
+                        Contact to Clients and Candidates</span><span class="exp-tag">Email Handling</span><span
+                        class="exp-tag">Report Generation</span><span class="exp-tag">International and India
+                        Clients</span></div>
+            </div>
+
+             <div class="exp-card reveal">
+                <div class="exp-period">Jun 2021 - Dec 2022</div>
+                <div class="exp-role">Service Delivery Executive</div>
+                <div class="exp-company">Neeyamo Enterprise and Solutions Private Limited · Madurai · Onsite</div>
+                <div class="exp-desc">Managed case assignments, coordinated with clients and candidates, and generated verification reports efficiently.</div>
+                <div class="exp-tags"><span class="exp-tag">Background Verification</span><span class="exp-tag">Email
+                        Handling</span><span class="exp-tag">Customer Service</span></div>
+            </div>
+        </div>
+
+        <section class="contained" id="education">
+
+            <div class="reveal">
+                <div class="section-label">Education</div>
+                <h2 class="section-title">My Academic Journey</h2>
+                <p class="section-desc">My educational background that supports my design and technical skills.</p>
+            </div>
+
+            <div class="exp-grid">
+
+                <!-- UI/UX Course -->
+                <div class="exp-card reveal">
+                    <div class="exp-period">2026 – Present</div>
+                    <div class="exp-role">Master of Business Administration - System Management</div>
+                    <div class="exp-company">Alagappa University - Karaikudi</div>
+                    <div class="exp-desc">
+                        Developing analytical and problem-solving skills through system-based approaches and gaining understanding of business processes and user behavior in digital platforms.
+
+                    </div>
+                    <div class="exp-tags">
+                        <span class="exp-tag">understanding of business processes</span>
+                        <span class="exp-tag">knowledge in project management </span>
+                        <span class="exp-tag">thinking to solve real-world challenges</span>
+                    </div>
+                </div>
+
+                <!-- Digital Marketing -->
+                <div class="exp-card reveal">
+                    <div class="exp-period">2016-2019</div>
+                    <div class="exp-role">Bachelor of Arts in English Literature</div>
+                    <div class="exp-company">Arul Anandar College, Madurai</div>
+                    <div class="exp-desc">
+                        Developed strong written and verbal communication skills and gained critical thinking and analytical abilities through literature analysis.
+                    </div>
+                    <div class="exp-tags">
+                        <span class="exp-tag">strong written and verbal communication skills.</span>
+                        <span class="exp-tag">critical thinking</span>
+                        <span class="exp-tag">attention to detail</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CERTIFICATIONS -->
+        <div style="margin-top:4rem;" id="certifications">
+            <div class="section-label">Credentials</div>
+            <h2 class="section-title">Certifications</h2>
+            <p class="section-desc">Verified qualifications and professional credentials.</p>
+        </div>
+        <div class="cert-grid">
+            <div class="cert-card reveal">
+                <div class="cert-badge">🏅</div>
+                <div>
+                    <div class="cert-name">Digital Marketing Course</div>
+                    <div class="cert-issuer">Elysium Academy · Madurai</div>
+                    <div class="cert-year">2026</div>
+                </div>
+            </div>
+            <div class="cert-card reveal">
+                <div class="cert-badge">⚛️</div>
+                <div>
+                    <div class="cert-name">UI/UX Designer Course</div>
+                    <div class="cert-issuer">Elysium Academy · Madurai</div>
+                    <div class="cert-year">2026</div>
+                </div>
+            </div>
+            <div class="cert-card reveal">
+                <div class="cert-badge">☁️</div>
+                <div>
+                    <div class="cert-name">Diploma in Computer Applications</div>
+                    <div class="cert-issuer">Computer Software College · Madurai</div>
+                    <div class="cert-year">Nov 2019 - May 2020</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <div class="full-section" style="background:white;" id="skills">
+        <div class="inner">
+            <div class="reveal">
+                <div class="section-label">My Expertise</div>
+                <h2 class="section-title">Skills & Technologies</h2>
+                <p class="section-desc">A curated set of tools and technologies I use to bring ideas to life.</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card reveal">
+                    <span class="skill-icon">🎨</span>
+                    <div class="skill-name">UI/UX Design</div>
+                    <div class="skill-level">Advanced</div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width:90%"></div>
+                    </div>
+                    <span class="exp-tag">User Research</span>
+                    <span class="exp-tag">Wireframing</span>
+                    <span class="exp-tag">Prototyping</span>
+                </div>
+
+                <div class="skill-card reveal">
+                    <span class="skill-icon">🧩</span>
+                    <div class="skill-name">Design Tools</div>
+                    <div class="skill-level">Advanced</div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width:85%"></div>
+                    </div>
+                    <span class="exp-tag">Figma</span>
+                    <span class="exp-tag">Adobe XD</span>
+                </div>
+
+                <div class="skill-card reveal">
+                    <span class="skill-icon">📐</span>
+                    <div class="skill-name">UX Process</div>
+                    <div class="skill-level">Intermediate</div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width:80%"></div>
+                    </div>
+                    <span class="exp-tag">User Flows</span>
+                    <span class="exp-tag">Usability Testing</span>
+                </div>
+
+                <div class="skill-card reveal">
+                    <span class="skill-icon">💻</span>
+                    <div class="skill-name">Frontend Basics</div>
+                    <div class="skill-level">Intermediate</div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width:75%"></div>
+                    </div>
+                    <span class="exp-tag">HTML</span>
+                    <span class="exp-tag">CSS</span>
+                    <span class="exp-tag">JavaScript</span>
+                </div>
+
+                <div class="skill-card reveal">
+                    <span class="skill-icon">🗄️</span>
+                    <div class="skill-name">Database Basics</div>
+                    <div class="skill-level">Beginner</div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width:65%"></div>
+                    </div>
+                    <span class="exp-tag">MySQL</span>
+                </div>
+
+                <div class="skill-card reveal">
+                    <span class="skill-icon">📊</span>
+                    <div class="skill-name">Digital Marketing</div>
+                    <div class="skill-level">Beginner</div>
+                    <div class="skill-bar">
+                        <div class="skill-fill" style="width:60%"></div>
+                    </div>
+                    <span class="exp-tag">SEO Basics</span>
+                    <span class="exp-tag">Content Strategy</span>
+                </div>
+
+            </div>
+
+            <section class="contained" id="projects">
+                <div class="reveal">
+                    <div class="section-label">Portfolio</div>
+                    <h2 class="section-title">Featured Projects</h2>
+                    <p class="section-desc">
+                        A selection of projects — with the research, problems, and solutions behind each one.
+                    </p>
+                </div>
+
+                <div class="projects-grid">
+
+                    <!-- 1. StayFit+ Website -->
+                    <div class="project-card reveal">
+                        <div class="project-thumb">
+                            <img src="images/Updated Logo.png" alt="StayFit+ Website">
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags-row">
+                                <span class="p-tag">UI/UX</span>
+                                <span class="p-tag">HTML</span>
+                                <span class="p-tag">CSS</span>
+                            </div>
+                            <div class="project-name">StayFit+ – Fitness Website</div>
+                            <p class="project-desc">A modern fitness website designed to motivate users with structured
+                                programs and clean UI.</p>
+
+                            <div class="research-block">
+                                <div class="research-col">
+                                    <div class="research-label">Problem</div>
+                                    <div class="research-text">Users struggled to find structured workout plans and
+                                        clear navigation.</div>
+                                </div>
+                                <div class="research-col">
+                                    <div class="research-label">Solution</div>
+                                    <div class="research-text">Designed categorized programs with clear CTAs and
+                                        responsive layouts.</div>
+                                </div>
+                            </div>
+
+                            <div class="project-links-row">
+                                <a href="https://kirubakarandaniel2699-web.github.io/Stayfit-/" class="proj-link proj-link-live" target="_blank">Live Demo ↗</a>
+                                <a href="project-details.html?id=1" class="proj-link">Case Study →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Flower Festival -->
+                    <div class="project-card reveal">
+                        <div class="project-thumb">
+                            <img src="images/Logo 1.png" alt="Flower Festival">
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags-row">
+                                <span class="p-tag">UI/UX</span>
+                                <span class="p-tag">Web Design</span>
+                            </div>
+                            <div class="project-name">Flower Festival – Event Website</div>
+                            <p class="project-desc">A visually rich event website showcasing festival details and
+                                highlights.</p>
+
+                            <div class="research-block">
+                                <div class="research-col">
+                                    <div class="research-label">Problem</div>
+                                    <div class="research-text">Users lacked clear event schedules and information.</div>
+                                </div>
+                                <div class="research-col">
+                                    <div class="research-label">Solution</div>
+                                    <div class="research-text">Created structured sections with engaging visuals and
+                                        easy navigation.</div>
+                                </div>
+                            </div>
+
+                            <div class="project-links-row">
+                                <a href="https://kirubakarandaniel2699-web.github.io/Flowersfestival-Test/" class="proj-link proj-link-live" target="_blank">Live Demo ↗</a>
+                                <a href="project-details.html?id=2" class="proj-link">Case Study →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Captured Dreams -->
+                    <div class="project-card reveal">
+                        <div class="project-thumb">
+                            <img src="images/Captured Dreams Logo.png" alt="Captured Dreams">
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags-row">
+                                <span class="p-tag">HTML</span>
+                                <span class="p-tag">CSS</span>
+                                <span class="p-tag">JavaScript</span>
+                            </div>
+                            <div class="project-name">Captured Dreams Studio</div>
+                            <p class="project-desc">A photography portfolio website with elegant UI and smooth
+                                navigation.</p>
+
+                            <div class="research-block">
+                                <div class="research-col">
+                                    <div class="research-label">Problem</div>
+                                    <div class="research-text">Photography studios lacked visually appealing online
+                                        presence.</div>
+                                </div>
+                                <div class="research-col">
+                                    <div class="research-label">Solution</div>
+                                    <div class="research-text">Focused on image-first design with minimal UI for better
+                                        showcase.</div>
+                                </div>
+                            </div>
+
+                            <div class="project-links-row">
+                                <a href="https://kirubakarandaniel2699-web.github.io/cd-studio/" class="proj-link proj-link-live" target="_blank">Live Demo ↗</a>
+                                <a href="project-details.html?id=3" class="proj-link">Case Study →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Menxpress -->
+                    <div class="project-card reveal">
+                        <div class="project-thumb">
+                            <img src="images/Logo-removebg-preview.png" alt="Menxpress">
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags-row">
+                                <span class="p-tag">WordPress</span>
+                                <span class="p-tag">UI/UX</span>
+                            </div>
+                            <div class="project-name">Menxpress – Men Boutique</div>
+                            <p class="project-desc">An e-commerce website for men's fashion with clean product browsing.
+                            </p>
+
+                            <div class="research-block">
+                                <div class="research-col">
+                                    <div class="research-label">Problem</div>
+                                    <div class="research-text">Users faced difficulty browsing fashion collections.
+                                    </div>
+                                </div>
+                                <div class="research-col">
+                                    <div class="research-label">Solution</div>
+                                    <div class="research-text">Designed structured layouts with filtering and better
+                                        navigation.</div>
+                                </div>
+                            </div>
+
+                            <div class="project-links-row">
+                                <a href="https://dev-menxpress.pantheonsite.io/" class="proj-link proj-link-live" target="_blank">Live Demo ↗</a>
+                                <a href="project-details.html?id=4" class="proj-link">Case Study →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Malabar Ocean -->
+                    <div class="project-card reveal">
+                        <div class="project-thumb">
+                            <img src="images/The_Malabar_Table__2_-removebg-preview.png" alt="Malabar Ocean">
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags-row">
+                                <span class="p-tag">WordPress</span>
+                                <span class="p-tag">Elementor</span>
+                            </div>
+                            <div class="project-name">The Malabar Ocean</div>
+                            <p class="project-desc">A luxury restaurant website with premium visuals and UI.</p>
+
+                            <div class="research-block">
+                                <div class="research-col">
+                                    <div class="research-label">Problem</div>
+                                    <div class="research-text">Restaurants lacked immersive online presence.</div>
+                                </div>
+                                <div class="research-col">
+                                    <div class="research-label">Solution</div>
+                                    <div class="research-text">Used large visuals and clean layout to enhance user
+                                        experience.</div>
+                                </div>
+                            </div>
+
+                            <div class="project-links-row">
+                                <a href="https://dev-the-malabar-ocean.pantheonsite.io/" class="proj-link proj-link-live" target="_blank">Live Demo ↗</a>
+                                <a href="project-details.html?id=5" class="proj-link">Case Study →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. StayFit+ App -->
+                    <div class="project-card reveal">
+                        <div class="project-thumb">
+                            <img src="images/Java.png" alt="StayFit App">
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags-row">
+                                <span class="p-tag">Figma</span>
+                                <span class="p-tag">Mobile UI</span>
+                            </div>
+                            <div class="project-name">StayFit+ Mobile App</div>
+                            <p class="project-desc">A fitness tracking app designed for simplicity and engagement.</p>
+
+                            <div class="research-block">
+                                <div class="research-col">
+                                    <div class="research-label">Problem</div>
+                                    <div class="research-text">Users found fitness apps complex and overwhelming.</div>
+                                </div>
+                                <div class="research-col">
+                                    <div class="research-label">Solution</div>
+                                    <div class="research-text">Designed simple tracking with progress visualization.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="project-links-row">
+                                <a href="https://www.figma.com/proto/uBTe4rfdBGkchVetUhoCnD/Stayfit-Mobile-Application-Design?node-id=500-6182&t=W4T4SUQA8SnM0MQL-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=356%3A5747&show-proto-sidebar=1" class="proj-link proj-link-live" target="_blank">Prototype ↗</a>
+                                <a href="project-details.html?id=6" class="proj-link">Case Study →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- CONTACT -->
+            <div class="full-section" id="contact">
+                <div class="inner">
+                    <div class="reveal">
+                        <div class="section-label">Let's Talk</div>
+                        <h2 class="section-title">Get In Touch</h2>
+                    </div>
+                    <div class="contact-wrap reveal">
+                        <div class="contact-left">
+                            <div class="section-label" style="color:#818cf8">Contact</div>
+                            <h3
+                                style="font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:700;color:white;letter-spacing:-0.02em;margin-bottom:0.5rem">
+                                Let's build something great together</h3>
+                            <p>Have a project in mind or just want to say hello? I'm always open to new opportunities
+                                and
+                                collaborations.</p>
+                            <div class="contact-info">
+                                <div class="contact-item">
+                                    <div class="contact-icon">📧</div>
+                                    <div>
+                                        <div class="contact-item-label">Email</div>
+                                        <div class="contact-item-text">kirubakarandaniel2699@gmail.com</div>
+                                    </div>
+                                </div>
+
+                                <div class="contact-item">
+                                    <div class="contact-icon">📱</div>
+                                    <div>
+                                        <div class="contact-item-label">Mobile Number:</div>
+                                        <div class="contact-item-text">9500877258 / 7708630764</div>
+                                    </div>
+                                </div>
+
+                                <div class="contact-item">
+                                    <div class="contact-icon">📍</div>
+                                    <div>
+                                        <div class="contact-item-label">Location</div>
+                                        <div class="contact-item-text">9/1, Ground Floor, Meyappan 3rd Street, <br>
+                                        Gnanaolivupuram, Madurai-625016</div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="contact-form">
+                            <div class="form-group">
+                                <label class="form-label">Your Name</label>
+                                <input class="form-input" type="text" placeholder="John Doe" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input class="form-input" type="email" placeholder="john@example.com" />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-input" placeholder="Tell me about your project..."></textarea>
+                            </div>
+                            <button class="btn-send">Send Message</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <p>Crafted with care · Daniel Kirubakaran Jeyarajan · 2026</p>
+            </footer>
+
+            <script>
+                const obs = new IntersectionObserver((entries) => {
+                    entries.forEach((e, i) => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 70) });
+                }, { threshold: 0.08 });
+                document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+            </script>
+</body>
+
+</html>
