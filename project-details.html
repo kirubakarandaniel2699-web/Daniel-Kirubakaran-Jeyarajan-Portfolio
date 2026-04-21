@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Case Study — Daniel Kirubakaran</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0 }
+        :root {
+            --ink: #0d0d0d;
+            --paper: #f5f2ec;
+            --rust: #c94a2a;
+            --rust-pale: #f0e8e4;
+            --bone: #e8e3d8;
+            --mid: #7a7468;
+            --white: #ffffff;
+        }
+        html { scroll-behavior: smooth }
+        body { font-family: 'Cabinet Grotesk', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6 }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.2rem 5%; background: rgba(245,242,236,0.95);
+            backdrop-filter: blur(16px); border-bottom: 1px solid var(--bone);
+        }
+        .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); text-decoration: none }
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.1em; color: var(--mid); text-decoration: none;
+            border: 1px solid var(--bone); padding: 7px 16px;
+            transition: all 0.2s;
+        }
+        .back-btn:hover { border-color: var(--rust); color: var(--rust) }
+
+        /* HERO */
+        .case-hero {
+            height: 70vh; min-height: 480px;
+            position: relative; overflow: hidden; margin-top: 64px;
+            display: flex; align-items: flex-end;
+        }
+        .case-hero img {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; object-position: center;
+        }
+        .hero-grad {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(13,13,13,0.90) 0%, rgba(13,13,13,0.35) 50%, transparent 100%);
+        }
+        .hero-content {
+            position: relative; z-index: 2;
+            padding: 3rem 8%; max-width: 900px;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: var(--rust); color: white;
+            font-size: 0.68rem; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            padding: 5px 12px; margin-bottom: 1rem;
+        }
+        .hero-content h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 700; color: white; line-height: 1.05;
+            letter-spacing: -0.03em; margin-bottom: 0.8rem;
+        }
+        .hero-content p { font-size: 1.05rem; color: rgba(255,255,255,0.65); font-weight: 300; max-width: 540px }
+        .hero-meta {
+            display: flex; gap: 2rem; flex-wrap: wrap;
+            margin-top: 1.5rem; padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+        .meta-pill{}
+        .meta-pill small { display: block; font-size: 0.65rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px }
+        .meta-pill span { font-size: 0.88rem; color: rgba(255,255,255,0.85); font-weight: 500 }
+
+        /* MAIN LAYOUT */
+        .case-body { max-width: 1100px; margin: 0 auto; padding: 5rem 5% }
+        .case-grid { display: grid; grid-template-columns: 1fr 320px; gap: 5rem; align-items: start }
+        .case-main{}
+        .case-sidebar { position: sticky; top: 100px }
+
+        /* BLOCKS */
+        .block { margin-bottom: 4rem }
+        .block-label {
+            font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--rust);
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 1rem;
+        }
+        .block-label::before { content: ''; display: block; width: 20px; height: 1.5px; background: var(--rust) }
+        .block h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700;
+            color: var(--ink); margin-bottom: 1.2rem; letter-spacing: -0.02em;
+        }
+        .block p { color: var(--mid); font-size: 0.96rem; line-height: 1.95; font-weight: 300; margin-bottom: 1rem }
+        .block p:last-child { margin-bottom: 0 }
+
+        /* RESEARCH OVERVIEW */
+        .research-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; margin-top: 2rem }
+        .r-card {
+            background: var(--white); border: 1px solid var(--bone);
+            padding: 1.5rem; border-top: 3px solid var(--rust);
+        }
+        .r-card-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--rust); font-weight: 700; margin-bottom: 0.5rem }
+        .r-card-text { font-size: 0.88rem; color: var(--mid); line-height: 1.75; font-weight: 300 }
+
+        /* PERSONA */
+        .persona-card {
+            background: var(--white); border: 1px solid var(--bone);
+            display: grid; grid-template-columns: 220px 1fr; overflow: hidden;
+        }
+        .persona-left {
+            background: var(--ink); padding: 2.5rem;
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center;
+        }
+        .persona-avatar {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: var(--rust); display: flex; align-items: center;
+            justify-content: center; font-size: 2rem; margin-bottom: 1rem;
+            border: 3px solid rgba(255,255,255,0.15);
+        }
+        .persona-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; color: white; margin-bottom: 4px }
+        .persona-role { font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 0.06em; text-transform: uppercase }
+        .persona-tags { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 6px; width: 100% }
+        .persona-tag {
+            background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7); font-size: 0.73rem; padding: 5px 10px; text-align: left;
+        }
+        .persona-right { padding: 2.5rem }
+        .persona-section { margin-bottom: 1.5rem }
+        .persona-section:last-child { margin-bottom: 0 }
+        .p-sec-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--rust); font-weight: 700; margin-bottom: 0.5rem }
+        .p-sec-text { font-size: 0.88rem; color: var(--mid); line-height: 1.75; font-weight: 300 }
+        .p-list { list-style: none; padding: 0 }
+        .p-list li {
+            font-size: 0.87rem; color: var(--mid); font-weight: 300;
+            padding: 5px 0; border-bottom: 1px solid var(--bone);
+            display: flex; gap: 8px; align-items: flex-start;
+        }
+        .p-list li::before { content: '→'; color: var(--rust); flex-shrink: 0; font-size: 0.78rem; margin-top: 2px }
+        .p-list li:last-child { border-bottom: none }
+
+        /* PROBLEM / SOLUTION */
+        .ps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem }
+        .ps-card { padding: 2rem; border: 1px solid var(--bone) }
+        .ps-card.problem { background: #fff8f6; border-color: rgba(201,74,42,0.2) }
+        .ps-card.solution { background: #f4f9f3; border-color: rgba(74,103,65,0.2) }
+        .ps-icon { font-size: 1.8rem; margin-bottom: 0.8rem }
+        .ps-title { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 0.6rem }
+        .ps-text { font-size: 0.87rem; color: var(--mid); line-height: 1.8; font-weight: 300 }
+
+        /* DESIGN PROCESS */
+        .process-steps { margin-top: 2rem }
+        .process-step {
+            display: grid; grid-template-columns: 56px 1fr;
+            gap: 1.5rem; padding: 1.5rem 0;
+            border-bottom: 1px solid var(--bone); align-items: start;
+        }
+        .process-step:last-child { border-bottom: none }
+        .step-num {
+            width: 48px; height: 48px;
+            background: var(--ink); color: white;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700;
+            flex-shrink: 0;
+        }
+        .step-title { font-weight: 700; font-size: 0.95rem; color: var(--ink); margin-bottom: 0.4rem }
+        .step-desc { font-size: 0.87rem; color: var(--mid); line-height: 1.75; font-weight: 300 }
+
+        /* KEY FEATURES */
+        .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem }
+        .feature-item {
+            background: var(--white); border: 1px solid var(--bone);
+            padding: 1.4rem; display: flex; gap: 1rem; align-items: flex-start;
+            transition: all 0.2s;
+        }
+        .feature-item:hover { border-color: var(--rust); transform: translateY(-2px) }
+        .feature-icon { font-size: 1.3rem; flex-shrink: 0 }
+        .feature-title { font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-bottom: 3px }
+        .feature-desc { font-size: 0.8rem; color: var(--mid); line-height: 1.65 }
+
+        /* COLOR PALETTE */
+        .palette-row { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap }
+        .palette-swatch {
+            flex: 1; min-width: 100px; border: 1px solid var(--bone);
+        }
+        .swatch-color { height: 80px }
+        .swatch-info { padding: 0.8rem; background: var(--white) }
+        .swatch-name { font-size: 0.82rem; font-weight: 700; color: var(--ink) }
+        .swatch-hex { font-size: 0.72rem; color: var(--mid); font-family: monospace }
+        .swatch-role { font-size: 0.68rem; color: var(--mid); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.06em }
+
+        /* TYPOGRAPHY */
+        .typo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem }
+        .typo-card {
+            background: var(--white); border: 1px solid var(--bone);
+            padding: 2rem;
+        }
+        .typo-sample { line-height: 1.1; margin-bottom: 1rem; color: var(--ink) }
+        .typo-meta small { font-size: 0.68rem; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em }
+        .typo-meta p { font-size: 0.82rem; color: var(--ink); font-weight: 500 }
+
+        /* SIDEBAR */
+        .sidebar-card { background: var(--white); border: 1px solid var(--bone); padding: 1.8rem; margin-bottom: 1.5rem }
+        .sidebar-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 1.2rem }
+        .sidebar-row { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0; border-bottom: 1px solid var(--bone) }
+        .sidebar-row:last-child { border-bottom: none }
+        .sidebar-key { font-size: 0.74rem; color: var(--mid); text-transform: uppercase; letter-spacing: 0.06em }
+        .sidebar-val { font-size: 0.82rem; color: var(--ink); font-weight: 700 }
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem }
+        .tech-tag {
+            font-size: 0.7rem; font-weight: 700; padding: 5px 12px;
+            background: var(--rust-pale); color: var(--rust);
+            border: 1px solid rgba(201,74,42,0.2); letter-spacing: 0.04em;
+        }
+        .cta-block { background: var(--ink); padding: 2rem; text-align: center }
+        .cta-block p { color: rgba(255,255,255,0.55); font-size: 0.8rem; margin-bottom: 1rem }
+        .btn-cta-live {
+            display: block; background: var(--rust); color: white;
+            text-decoration: none; padding: 0.9rem; text-align: center;
+            font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+            transition: all 0.2s; margin-bottom: 0.8rem;
+        }
+        .btn-cta-live:hover { background: white; color: var(--rust) }
+        .btn-cta-back {
+            display: block; border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.6);
+            text-decoration: none; padding: 0.9rem; text-align: center;
+            font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        .btn-cta-back:hover { border-color: white; color: white }
+
+        /* OUTCOME */
+        .outcomes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem }
+        .outcome-item { background: var(--white); border: 1px solid var(--bone); padding: 1.5rem; text-align: center }
+        .outcome-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: var(--rust); display: block }
+        .outcome-label { font-size: 0.75rem; color: var(--mid); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.06em }
+
+        /* RESPONSIVE */
+        @media(max-width: 900px) {
+            .case-grid { grid-template-columns: 1fr }
+            .case-sidebar { position: static }
+            .research-grid { grid-template-columns: 1fr }
+            .persona-card { grid-template-columns: 1fr }
+            .ps-grid, .features-grid, .typo-grid { grid-template-columns: 1fr }
+            .outcomes-grid { grid-template-columns: 1fr 1fr }
+        }
+        @media(max-width: 640px) {
+            .case-body { padding: 3rem 5% }
+            .persona-left { padding: 2rem }
+            .persona-right { padding: 2rem }
+            .outcomes-grid { grid-template-columns: 1fr }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-logo">Daniel Kirubakaran</a>
+        <a href="index.html" class="back-btn">← Back to Portfolio</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="case-hero">
+        <img id="heroImg" src="" alt="">
+        <div class="hero-grad"></div>
+        <div class="hero-content">
+            <span id="heroBadge" class="hero-badge">Case Study</span>
+            <h1 id="heroTitle"></h1>
+            <p id="heroDesc"></p>
+            <div class="hero-meta">
+                <div class="meta-pill"><small>Category</small><span id="metaCategory"></span></div>
+                <div class="meta-pill"><small>Year</small><span id="metaYear"></span></div>
+                <div class="meta-pill"><small>Services</small><span id="metaServices"></span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BODY -->
+    <div class="case-body">
+        <div class="case-grid">
+            <div class="case-main">
+
+                <!-- OVERVIEW -->
+                <div class="block">
+                    <div class="block-label">Project Overview</div>
+                    <h2 id="overviewTitle"></h2>
+                    <p id="overviewText"></p>
+                </div>
+
+                <!-- USER RESEARCH -->
+                <div class="block">
+                    <div class="block-label">User Research</div>
+                    <h2>Understanding the User</h2>
+                    <p id="researchText"></p>
+                    <div class="research-grid" id="researchGrid"></div>
+                </div>
+
+                <!-- PERSONA -->
+                <div class="block">
+                    <div class="block-label">User Persona</div>
+                    <h2>Who are we designing for?</h2>
+                    <div class="persona-card" id="personaCard"></div>
+                </div>
+
+                <!-- PROBLEM & SOLUTION -->
+                <div class="block">
+                    <div class="block-label">Problem & Solution</div>
+                    <h2>Identifying the Core Challenge</h2>
+                    <div class="ps-grid" id="psGrid"></div>
+                </div>
+
+                <!-- DESIGN PROCESS -->
+                <div class="block">
+                    <div class="block-label">Design Process</div>
+                    <h2>How I Approached It</h2>
+                    <div class="process-steps" id="processSteps"></div>
+                </div>
+
+                <!-- KEY FEATURES -->
+                <div class="block">
+                    <div class="block-label">Key Features</div>
+                    <h2>What Was Built</h2>
+                    <div class="features-grid" id="featuresGrid"></div>
+                </div>
+
+                <!-- COLOR PALETTE -->
+                <div class="block">
+                    <div class="block-label">Color Palette</div>
+                    <h2>Visual Identity</h2>
+                    <p id="colorIntro"></p>
+                    <div class="palette-row" id="paletteRow"></div>
+                </div>
+
+                <!-- TYPOGRAPHY -->
+                <div class="block">
+                    <div class="block-label">Typography</div>
+                    <h2>Type System</h2>
+                    <div class="typo-grid" id="typoGrid"></div>
+                </div>
+
+                <!-- OUTCOMES -->
+                <div class="block">
+                    <div class="block-label">Outcomes & Learnings</div>
+                    <h2>Results & Reflection</h2>
+                    <p id="outcomesText"></p>
+                    <div class="outcomes-grid" id="outcomesGrid"></div>
+                </div>
+
+            </div>
+
+            <!-- SIDEBAR -->
+            <div class="case-sidebar">
+                <div class="sidebar-card">
+                    <h3>Project Info</h3>
+                    <div class="sidebar-row"><span class="sidebar-key">Category</span><span class="sidebar-val" id="sbCategory"></span></div>
+                    <div class="sidebar-row"><span class="sidebar-key">Year</span><span class="sidebar-val" id="sbYear"></span></div>
+                    <div class="sidebar-row"><span class="sidebar-key">Services</span><span class="sidebar-val" id="sbServices"></span></div>
+                    <div class="sidebar-row"><span class="sidebar-key">Role</span><span class="sidebar-val" id="sbRole"></span></div>
+                </div>
+                <div class="sidebar-card">
+                    <h3>Technologies Used</h3>
+                    <div class="tech-tags" id="techTags"></div>
+                </div>
+                <div class="cta-block">
+                    <p>Ready to see this project live?</p>
+                    <a id="liveLink" href="#" class="btn-cta-live" target="_blank">View Live Project ↗</a>
+                    <a href="index.html" class="btn-cta-back">Back to Portfolio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="project-details.js"></script>
+</body>
+</html>
